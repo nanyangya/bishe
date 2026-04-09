@@ -1,8 +1,9 @@
 <template>
   <div class="projects">
-    <h2>我的作品</h2>
-
-    <!-- 分类筛选 -->
+    <SectionHeader
+      title="项目区域"
+      subtitle="按类型快速筛选你的学习项目、实战项目和工具类项目。"
+    />
     <div class="filters">
       <button
         v-for="cat in categories"
@@ -15,16 +16,28 @@
     </div>
 
     <div class="project-list">
-      <div
-        v-for="project in filteredProjects"
-        :key="project.id"
-        class="project-card animate__animated animate__fadeInUp"
-      >
+      <AppCard v-for="project in filteredProjects" :key="project.id" class="project-card">
         <img :src="project.image" :alt="project.title" />
+        <p class="meta">{{ project.category }} · {{ project.date }}</p>
         <h3>{{ project.title }}</h3>
+        <p class="summary">{{ project.summary }}</p>
         <p class="desc" :title="project.description">{{ project.description }}</p>
-        <router-link class="btn-link" :to="`/projects/${project.id}`">查看详情</router-link>
-      </div>
+        <div class="tag-list">
+          <AppTag v-for="tag in project.tags" :key="tag">{{ tag }}</AppTag>
+        </div>
+        <div class="actions">
+          <router-link class="btn-link" :to="`/projects/${project.id}`">查看详情</router-link>
+          <a
+            v-if="project.links.demo"
+            class="btn-link ghost"
+            :href="project.links.demo"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            在线预览
+          </a>
+        </div>
+      </AppCard>
     </div>
   </div>
 </template>
@@ -32,20 +45,23 @@
 <script lang="ts">
 import { defineComponent, ref, computed } from "vue";
 import { projects } from "../data/projects";
+import AppCard from "../components/common/AppCard.vue";
+import AppTag from "../components/common/AppTag.vue";
+import SectionHeader from "../components/common/SectionHeader.vue";
 
 export default defineComponent({
   name: "Projects",
+  components: { AppCard, AppTag, SectionHeader },
   setup() {
-    const selectedCategory = ref("All");
+    const selectedCategory = ref("全部");
 
-    // 动态生成分类
     const categories = computed(() => [
-      "All",
+      "全部",
       ...new Set(projects.map((p) => p.category)),
     ]);
 
     const filteredProjects = computed(() => {
-      if (selectedCategory.value === "All") return projects;
+      if (selectedCategory.value === "全部") return projects;
       return projects.filter((p) => p.category === selectedCategory.value);
     });
 
@@ -57,18 +73,13 @@ export default defineComponent({
 <style scoped>
 .projects {
   padding: clamp(1.5rem, 4vw, 2.75rem);
-  text-align: center;
   flex: 1;
   background: var(--bg);
   color: var(--text);
 }
 
-.projects h2 {
-  margin-top: 0;
-}
-
 .filters {
-  margin: 1.25rem 0 1.75rem;
+  margin: 0 0 1.75rem;
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
@@ -101,34 +112,32 @@ export default defineComponent({
 }
 
 .project-list {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 1.75rem;
-  justify-content: center;
 }
 
 .project-card {
-  width: min(280px, 100%);
-  background: var(--bg);
-  border-radius: 16px;
-  padding: 1.1rem;
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow);
   text-align: left;
-  transition:
-    transform 0.25s ease,
-    border-color 0.25s ease;
-}
-
-.project-card:hover {
-  transform: translateY(-6px);
-  border-color: color-mix(in srgb, var(--accent) 35%, var(--border));
 }
 
 .project-card h3 {
-  margin: 0.65rem 0 0.35rem;
+  margin: 0.5rem 0 0.35rem;
   font-size: 1.1rem;
   color: var(--text-h);
+}
+
+.meta {
+  margin: 0.65rem 0 0;
+  font-size: 0.8rem;
+  color: var(--text);
+}
+
+.summary {
+  margin: 0;
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 0.86rem;
 }
 
 .desc {
@@ -140,6 +149,19 @@ export default defineComponent({
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.75rem;
+}
+
+.actions {
+  display: flex;
+  gap: 0.55rem;
+  flex-wrap: wrap;
 }
 
 .btn-link {
@@ -167,6 +189,12 @@ export default defineComponent({
 
 .btn-link:active {
   transform: translateY(0) scale(0.98);
+}
+
+.btn-link.ghost {
+  background: var(--social-bg);
+  color: var(--text-h);
+  border: 1px solid var(--border);
 }
 
 .project-card img {

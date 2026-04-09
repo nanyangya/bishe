@@ -9,13 +9,23 @@ const routes: RouteRecordRaw[] = [
   {
     path: "/projects",
     component: () => import("../pages/Projects.vue"),
-    meta: { title: "作品" },
+    meta: { title: "项目" },
   },
   {
     path: "/projects/:id",
     component: () => import("../pages/ProjectDetail.vue"),
     props: true,
     meta: { title: "作品详情" },
+  },
+  {
+    path: "/games",
+    component: () => import("../pages/Games.vue"),
+    meta: { title: "游戏" },
+  },
+  {
+    path: "/games/:id",
+    component: () => import("../pages/GameDetail.vue"),
+    meta: { title: "游戏详情" },
   },
   {
     path: "/about",

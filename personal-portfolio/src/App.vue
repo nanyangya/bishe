@@ -15,7 +15,8 @@
         </button>
         <nav id="site-nav" class="site-nav" :data-open="String(menuOpen)" aria-label="主导航">
           <router-link to="/" class="nav-link">首页</router-link>
-          <router-link to="/projects" class="nav-link">作品</router-link>
+          <router-link to="/projects" class="nav-link">项目</router-link>
+          <router-link to="/games" class="nav-link">游戏</router-link>
           <router-link to="/about" class="nav-link">关于</router-link>
         </nav>
         <button

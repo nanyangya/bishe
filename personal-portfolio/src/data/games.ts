@@ -1,0 +1,45 @@
+import type { Game } from "../types/game";
+
+export const games: Game[] = [
+  {
+    id: 1,
+    slug: "memory-flip",
+    title: "记忆翻牌",
+    summary: "在有限步数内配对全部卡牌",
+    description: "锻炼记忆与策略，支持计时和步数统计。",
+    genre: "益智",
+    difficulty: "入门",
+    controls: "鼠标点击",
+    image: "https://picsum.photos/seed/game-1/960/600",
+    playUrl: "https://example.com/games/memory",
+    repoUrl: "https://github.com/yourname/memory-flip",
+    tags: ["Canvas", "TS", "动画"],
+  },
+  {
+    id: 2,
+    slug: "jump-runner",
+    title: "像素跳跃者",
+    summary: "躲避障碍并尽可能获得高分",
+    description: "含速度渐进机制，考验反应能力。",
+    genre: "动作",
+    difficulty: "中等",
+    controls: "空格/触屏点击",
+    image: "https://picsum.photos/seed/game-2/960/600",
+    playUrl: "https://example.com/games/runner",
+    tags: ["TypeScript", "Game Loop"],
+  },
+  {
+    id: 3,
+    slug: "idle-farm",
+    title: "放置小农场",
+    summary: "轻松放置经营，自动累计收益",
+    description: "适合碎片化体验，包含成长曲线与成就系统。",
+    genre: "休闲",
+    difficulty: "入门",
+    controls: "鼠标点击",
+    image: "https://picsum.photos/seed/game-3/960/600",
+    playUrl: "https://example.com/games/farm",
+    tags: ["Vue3", "状态管理"],
+  },
+];
+
