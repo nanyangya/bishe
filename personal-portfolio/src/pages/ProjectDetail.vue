@@ -1,7 +1,7 @@
 <template>
   <div v-if="project" class="project-detail">
     <h2>{{ project.title }}</h2>
-    <img :src="project.image" :alt="project.title" />
+    <img :src="project.image" :alt="project.title" loading="lazy" />
     <p class="desc">{{ project.description }}</p>
     <p class="meta">分类：{{ project.category }}</p>
     <p class="meta tags">
@@ -63,6 +63,15 @@ export default defineComponent({
   border-radius: 0;
   flex: 1;
   color: var(--text);
+  min-height: calc(100svh - 64px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.project-detail > * {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .project-detail h2 {
@@ -136,6 +145,15 @@ export default defineComponent({
   filter: brightness(1.05);
 }
 
+.actions button:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.actions button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 .actions button.favorite {
   background: color-mix(in srgb, var(--accent) 65%, var(--text-h));
 }
@@ -159,6 +177,25 @@ export default defineComponent({
 .link-out:hover,
 .back-link:hover {
   box-shadow: var(--shadow);
+}
+
+.link-out:active,
+.back-link:active {
+  transform: scale(0.98);
+}
+
+.link-out:focus-visible,
+.back-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+:global(html[data-theme="dark"]) .project-detail {
+  background: linear-gradient(
+    160deg,
+    rgba(124, 58, 237, 0.18),
+    color-mix(in srgb, var(--bg) 86%, #000 14%)
+  );
 }
 
 .not-found h2 {

@@ -227,4 +227,13 @@ export default defineComponent({
   background: rgba(255, 255, 255, 0.28);
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
 }
+
+.btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.btn:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 4px;
+}
 </style>
