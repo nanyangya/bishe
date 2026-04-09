@@ -26,8 +26,8 @@
 
 <script setup lang="ts">
 import Timeline from "../components/about/Timeline.vue";
-import SkillMeter from "../components/about/SkillMeter.vue";
-import ContactLinks from "../components/about/ContactLinks.vue";
+import SkillMeter from "../components/about/skillMeter.vue";
+import ContactLinks from "../components/about/Contactlinks.vue";
 import SectionHeader from "../components/common/SectionHeader.vue";
 import { profile } from "../data/profile";
 </script>

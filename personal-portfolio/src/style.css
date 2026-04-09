@@ -35,8 +35,8 @@
 /* 由 JS 在 <html data-theme="dark"> 上切换，可覆盖系统偏好 */
 html[data-theme="dark"] {
   color-scheme: dark;
-  --text: #9ca3af;
-  --text-h: #f3f4f6;
+  --text: #f3f4f6;
+  --text-h: #ffffff;
   --bg: #16171d;
   --border: #2e303a;
   --code-bg: #1f2028;
