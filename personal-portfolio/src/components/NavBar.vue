@@ -6,7 +6,7 @@
       <button
         class="nav-toggle"
         type="button"
-        :aria-expanded="String(open)"
+        :aria-expanded="open"
         aria-controls="primary-nav"
         aria-label="打开或关闭导航菜单"
         @click="open = !open"
