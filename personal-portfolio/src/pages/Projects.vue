@@ -22,8 +22,8 @@
       >
         <img :src="project.image" :alt="project.title" />
         <h3>{{ project.title }}</h3>
-        <p>{{ project.description }}</p>
-        <router-link :to="`/projects/${project.id}`">查看详情</router-link>
+        <p class="desc" :title="project.description">{{ project.description }}</p>
+        <router-link class="btn-link" :to="`/projects/${project.id}`">查看详情</router-link>
       </div>
     </div>
   </div>
@@ -103,7 +103,7 @@ export default defineComponent({
 .project-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 1.25rem;
+  gap: 1.75rem;
   justify-content: center;
 }
 
@@ -131,22 +131,42 @@ export default defineComponent({
   color: var(--text-h);
 }
 
-.project-card p {
+.desc {
   font-size: 0.9rem;
   line-height: 1.5;
   margin-bottom: 0.75rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.project-card a {
-  display: inline-block;
-  font-weight: 600;
+.btn-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.55rem 0.95rem;
+  border-radius: 999px;
+  background: linear-gradient(45deg, #6a11cb, #2575fc);
+  color: #fff;
+  font-weight: 700;
   font-size: 0.9rem;
-  color: var(--accent);
   text-decoration: none;
+  transition:
+    transform 0.15s ease,
+    filter 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-.project-card a:hover {
-  text-decoration: underline;
+.btn-link:hover {
+  filter: brightness(1.05);
+  box-shadow: 0 10px 24px rgba(37, 117, 252, 0.25);
+  transform: translateY(-1px);
+}
+
+.btn-link:active {
+  transform: translateY(0) scale(0.98);
 }
 
 .project-card img {

@@ -1,9 +1,19 @@
 <template>
   <div class="layout">
-    <header class="site-header">
+    <header class="site-header" :data-variant="headerVariant">
       <router-link to="/" class="logo">作品集</router-link>
       <div class="header-actions">
-        <nav class="site-nav" aria-label="主导航">
+        <button
+          type="button"
+          class="menu-toggle"
+          :aria-expanded="String(menuOpen)"
+          aria-controls="site-nav"
+          aria-label="打开或关闭导航菜单"
+          @click="menuOpen = !menuOpen"
+        >
+          <span class="menu-toggle__bars" aria-hidden="true"></span>
+        </button>
+        <nav id="site-nav" class="site-nav" :data-open="String(menuOpen)" aria-label="主导航">
           <router-link to="/" class="nav-link">首页</router-link>
           <router-link to="/projects" class="nav-link">作品</router-link>
           <router-link to="/about" class="nav-link">关于</router-link>
@@ -40,8 +50,23 @@
 
 <script setup lang="ts">
 import { useThemeStore } from "./store/themeStore";
+import { computed, ref, watch } from "vue";
+import { useRoute } from "vue-router";
 
 const theme = useThemeStore();
+const route = useRoute();
+const menuOpen = ref(false);
+
+watch(
+  () => route.fullPath,
+  () => {
+    menuOpen.value = false;
+  }
+);
+
+const headerVariant = computed<"on-hero" | "normal">(() => {
+  return route.path === "/" ? "on-hero" : "normal";
+});
 </script>
 
 <style scoped>
@@ -60,17 +85,23 @@ const theme = useThemeStore();
   justify-content: space-between;
   gap: 1rem;
   padding: 0.75rem 1.25rem;
-  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  background: var(--surface);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
+}
+
+.site-header[data-variant="on-hero"] {
+  color: rgba(255, 255, 255, 0.92);
+  background: rgba(10, 10, 16, 0.45);
+  border-bottom-color: rgba(255, 255, 255, 0.14);
 }
 
 .logo {
   font-family: var(--heading, system-ui, sans-serif);
   font-weight: 600;
   font-size: 1.1rem;
-  color: var(--text-h);
+  color: currentColor;
   text-decoration: none;
   letter-spacing: -0.02em;
 }
@@ -84,6 +115,66 @@ const theme = useThemeStore();
   flex-wrap: wrap;
   align-items: center;
   gap: 0.5rem 0.75rem;
+}
+
+.menu-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--social-bg);
+  color: currentColor;
+  cursor: pointer;
+}
+
+.site-header[data-variant="on-hero"] .menu-toggle {
+  border-color: rgba(255, 255, 255, 0.22);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.menu-toggle:hover {
+  border-color: var(--accent-border);
+  background: var(--accent-bg);
+}
+
+.menu-toggle:active {
+  transform: scale(0.98);
+}
+
+.menu-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.menu-toggle__bars {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: currentColor;
+  position: relative;
+  border-radius: 2px;
+}
+
+.menu-toggle__bars::before,
+.menu-toggle__bars::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 22px;
+  height: 2px;
+  background: currentColor;
+  border-radius: 2px;
+}
+
+.menu-toggle__bars::before {
+  top: -7px;
+}
+
+.menu-toggle__bars::after {
+  top: 7px;
 }
 
 .site-nav {
@@ -128,19 +219,22 @@ const theme = useThemeStore();
 }
 
 .nav-link {
+  position: relative;
   padding: 0.4rem 0.85rem;
   border-radius: 999px;
   font-size: 0.95rem;
-  color: var(--text);
+  color: currentColor;
   text-decoration: none;
   transition:
     color 0.2s,
-    background 0.2s;
+    background 0.2s,
+    transform 0.15s;
 }
 
 .nav-link:hover {
-  color: var(--text-h);
+  color: currentColor;
   background: var(--social-bg);
+  transform: translateY(-1px);
 }
 
 .nav-link.router-link-active {
@@ -149,10 +243,64 @@ const theme = useThemeStore();
   font-weight: 500;
 }
 
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 6px;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  opacity: 0.6;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.2s ease;
+}
+
+.nav-link:hover::after,
+.nav-link.router-link-active::after {
+  transform: scaleX(1);
+}
+
 .site-main {
   flex: 1;
   display: flex;
   flex-direction: column;
   min-height: 0;
+}
+
+@media (max-width: 640px) {
+  .menu-toggle {
+    display: inline-flex;
+  }
+
+  .site-nav {
+    position: absolute;
+    left: 12px;
+    right: 12px;
+    top: 58px;
+    display: grid;
+    gap: 8px;
+    padding: 12px;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    background: var(--surface-strong);
+    transform: translateY(-6px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  .site-header[data-variant="on-hero"] .site-nav {
+    background: rgba(10, 10, 16, 0.72);
+    border-color: rgba(255, 255, 255, 0.14);
+  }
+
+  .site-nav[data-open="true"] {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
 }
 </style>
