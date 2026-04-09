@@ -177,6 +177,12 @@ const filteredGames = computed(() =>
   border: 1px solid var(--border);
 }
 
+:global(html[data-theme="dark"]) .btn-link.ghost {
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.24);
+}
+
 img {
   width: 100%;
   aspect-ratio: 16 / 10;

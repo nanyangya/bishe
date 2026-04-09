@@ -16,4 +16,10 @@
   font-size: 0.78rem;
   font-weight: 600;
 }
+
+:global(html[data-theme="dark"]) .app-tag {
+  color: #ffffff;
+  background: rgba(192, 132, 252, 0.22);
+  border-color: rgba(192, 132, 252, 0.75);
+}
 </style>
