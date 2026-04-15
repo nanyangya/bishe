@@ -12,8 +12,23 @@
       <button type="button" @click="toggleFavorite" :class="{ favorite: isFavorite }">
         {{ isFavorite ? "已收藏" : "收藏" }}
       </button>
-      <a :href="project.link" target="_blank" rel="noopener noreferrer" class="link-out">
+      <a
+        v-if="project.links.demo"
+        :href="project.links.demo"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="link-out"
+      >
         查看在线项目
+      </a>
+      <a
+        v-if="project.links.github"
+        :href="project.links.github"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="link-out"
+      >
+        查看源码
       </a>
     </div>
   </div>

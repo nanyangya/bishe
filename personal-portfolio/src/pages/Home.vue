@@ -38,15 +38,21 @@
       </swiper>
     </div>
 
-    <router-link to="/projects" class="btn animate__animated animate__bounceIn">
-      查看全部作品
-    </router-link>
+    <div class="cta-group">
+      <router-link to="/projects" class="btn animate__animated animate__bounceIn">
+        查看全部项目
+      </router-link>
+      <router-link to="/games" class="btn btn-ghost animate__animated animate__bounceIn">
+        查看游戏区域
+      </router-link>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, computed } from "vue";
-import { projects, type Project } from "../data/projects";
+import { projects } from "../data/projects";
+import type { Project } from "../types/project";
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import "swiper/css";
@@ -226,6 +232,17 @@ export default defineComponent({
   transform: translateY(-2px);
   background: rgba(255, 255, 255, 0.28);
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+}
+
+.btn-ghost {
+  background: rgba(0, 0, 0, 0.22);
+}
+
+.cta-group {
+  display: flex;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .btn:active {

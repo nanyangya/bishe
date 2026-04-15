@@ -1,63 +1,74 @@
 <template>
   <div class="about">
-    <h2>关于我</h2>
-    <p>我是前端开发爱好者，喜欢炫彩动画和创意项目。</p>
-    <div class="skills">
-      <span>Vue3</span>
-      <span>TypeScript</span>
-      <span>HTML/CSS</span>
-      <span>JavaScript</span>
-      <span>Animate.css</span>
-    </div>
+    <SectionHeader
+      title="关于我"
+      :subtitle="`${profile.name} · ${profile.title}`"
+    />
+    <p class="bio">{{ profile.bio }}</p>
+
+    <section class="panel">
+      <h3>成长时间线</h3>
+      <Timeline :items="profile.timeline" />
+    </section>
+
+    <section class="grid">
+      <div class="panel">
+        <h3>技能评级</h3>
+        <SkillMeter :items="profile.skills" />
+      </div>
+      <div class="panel">
+        <h3>联系方式</h3>
+        <ContactLinks :items="profile.contacts" />
+      </div>
+    </section>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-
-export default defineComponent({
-  name: "About",
-});
+<script setup lang="ts">
+import Timeline from "../components/about/Timeline.vue";
+import SkillMeter from "../components/about/skillMeter.vue";
+import ContactLinks from "../components/about/Contactlinks.vue";
+import SectionHeader from "../components/common/SectionHeader.vue";
+import { profile } from "../data/profile";
 </script>
 
 <style scoped>
 .about {
-  padding: clamp(2rem, 5vw, 3.5rem);
-  text-align: center;
+  padding: clamp(1.5rem, 4vw, 2.75rem);
   flex: 1;
-  background:
-    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(255, 255, 255, 0.25), transparent),
-    linear-gradient(145deg, #2dd4bf 0%, #0d9488 45%, #155e75 100%);
-  color: #f0fdfa;
+  background: var(--bg);
+  color: var(--text);
 }
 
-.about h2 {
-  color: #fff;
-  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.12);
+.bio {
+  max-width: 58ch;
+  text-align: center;
+  margin: 0 auto 1.2rem;
+  line-height: 1.6;
 }
 
-.about p {
-  max-width: 36ch;
-  margin: 0.75rem auto 0;
-  line-height: 1.65;
-  opacity: 0.96;
+.panel {
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1rem;
+  background: var(--surface);
+  margin-bottom: 1rem;
 }
 
-.skills {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  justify-content: center;
-  margin-top: 1.75rem;
+h3 {
+  margin: 0 0 0.8rem;
+  color: var(--text-h);
 }
 
-.skills span {
-  background: rgba(255, 255, 255, 0.18);
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  padding: 0.4rem 0.9rem;
-  border-radius: 999px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  backdrop-filter: blur(6px);
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 860px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 </style>

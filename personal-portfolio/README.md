@@ -14,22 +14,77 @@
 
 ## 目录结构
 
-```text
+````text
 personal-portfolio
 ├─ public
-├─ src
-│  ├─ assets
-│  ├─ components
-│  ├─ data
-│  ├─ pages
-│  ├─ router
-│  ├─ store
-│  ├─ App.vue
-│  └─ main.ts
-├─ index.html
-├─ package.json
-└─ vite.config.ts
-```
+├src
+├─ assets/
+│  ├─ images/
+│  │  ├─ projects/
+│  │  ├─ games/
+│  │  └─ profile/
+│  └─ icons/
+├─ components/
+│  ├─ common/
+│  │  ├─ AppButton.vue
+│  │  ├─ AppCard.vue
+│  │  ├─ AppTag.vue
+│  │  ├─ SectionHeader.vue
+│  │  ├─ EmptyState.vue
+│  │  └─ LoadingSkeleton.vue
+│  ├─ layout/
+│  │  ├─ NavBar.vue
+│  │  └─ AppFooter.vue
+│  ├─ project/
+│  │  ├─ ProjectCard.vue
+│  │  ├─ ProjectFilterBar.vue
+│  │  └─ ProjectMeta.vue
+│  ├─ game/
+│  │  ├─ GameCard.vue
+│  │  ├─ GameFilterBar.vue
+│  │  └─ DifficultyBadge.vue
+│  └─ about/
+│     ├─ Timeline.vue
+│     ├─ SkillMeter.vue
+│     └─ ContactLinks.vue
+├─ composables/
+│  ├─ useFilters.ts
+│  ├─ useSearch.ts
+│  ├─ usePageMeta.ts
+│  └─ useScrollTop.ts
+├─ data/
+│  ├─ projects.ts
+│  ├─ games.ts
+│  ├─ profile.ts
+│  └─ taxonomy.ts
+├─ pages/
+│  ├─ Home.vue
+│  ├─ Projects.vue
+│  ├─ ProjectDetail.vue
+│  ├─ Games.vue
+│  ├─ GameDetail.vue
+│  ├─ About.vue
+│  └─ NotFound.vue
+├─ router/
+│  └─ index.ts
+├─ store/
+│  ├─ themeStore.ts
+│  ├─ mainStore.ts
+│  └─ uiStore.ts
+├─ styles/
+│  ├─ tokens.css
+│  ├─ base.css
+│  ├─ utilities.css
+│  └─ animations.css
+├─ types/
+│  ├─ project.ts
+│  ├─ game.ts
+│  └─ profile.ts
+├─ utils/
+│  ├─ format.ts
+│  └─ seo.ts
+├─ App.vue
+└─ main.ts
 
 ## 本地运行
 
@@ -38,7 +93,7 @@ personal-portfolio
 ```bash
 npm install
 npm run dev
-```
+````
 
 默认开发地址：<http://localhost:5173>
 
