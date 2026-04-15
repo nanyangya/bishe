@@ -23,7 +23,12 @@ const routes: RouteRecordRaw[] = [
     meta: { title: "游戏" },
   },
   {
-    path: "/games/:id",
+    path: "/games/memory-flip",
+    component: () => import("../pages/MemoryFlip.vue"),
+    meta: { title: "记忆翻牌" },
+  },
+  {
+    path: "/games/:id(\\d+)",
     component: () => import("../pages/GameDetail.vue"),
     meta: { title: "游戏详情" },
   },
